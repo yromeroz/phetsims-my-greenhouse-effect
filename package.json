@@ -4,23 +4,33 @@
   "license": "GPL-3.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/phetsims/my-greenhouse-effect.git"
+    "url": "https://github.com/phetsims/my-greenhouse-effect"
   },
   "devDependencies": {
     "grunt": "~1.5.3"
   },
   "phet": {
     "requirejsNamespace": "MY_GREENHOUSE_EFFECT",
+    "phetLibs": [
+      "nitroglycerin",
+      "bamboo"
+    ],
     "simulation": true,
     "runnable": true,
     "supportedBrands": [
       "phet",
+      "phet-io",
       "adapted-from-phet"
     ],
     "supportsOutputJS": true,
     "simFeatures": {
-      "supportsDynamicLocale": true
-    }
+      "supportsDynamicLocale": true,
+      "supportsSound": true,
+      "supportsExtraSound": true,
+      "supportsInteractiveDescription": true
+    },
+    "supportsOutputJS": true,
+    "published": true
   },
   "eslintConfig": {
     "extends": "../chipper/eslint/sim_eslintrc.js",
@@ -31,7 +41,8 @@
         ],
         "rules": {
           "@typescript-eslint/no-explicit-any": "error",
-          "@typescript-eslint/ban-ts-comment": "error"
+          "@typescript-eslint/ban-ts-comment": "error",
+          "todo-should-have-issue": "off"
         }
       }
     ]

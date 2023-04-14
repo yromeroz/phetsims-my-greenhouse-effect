@@ -26,7 +26,7 @@
       "license": "GPL-3.0",
       "repository": {
         "type": "git",
-        "url": "https://github.com/phetsims/my-greenhouse-effect.git"
+        "url": "https://github.com/yromeroz/phetsims-my-greenhouse-effect"
       },
       "devDependencies": {
         "grunt": "~1.5.3"
@@ -38,6 +38,7 @@
         "readmeCreatedManually": true,
         "supportedBrands": [
           "phet",
+          "phet-io",
           "adapted-from-phet"
         ],
         "supportsOutputJS": true,
@@ -62,16 +63,24 @@
   window.phet.chipper.stringRepos =
     [
       {
+        "repo": "bamboo",
+        "requirejsNamespace": "BAMBOO"
+      },
+      {
         "repo": "joist",
         "requirejsNamespace": "JOIST"
       },
       {
-        "repo": "scenery-phet",
-        "requirejsNamespace": "SCENERY_PHET"
-      },
-      {
         "repo": "my-greenhouse-effect",
         "requirejsNamespace": "MY_GREENHOUSE_EFFECT"
+      },
+      {
+        "repo": "nitroglycerin",
+        "requirejsNamespace": "NITROGLYCERIN"
+      },
+      {
+        "repo": "scenery-phet",
+        "requirejsNamespace": "SCENERY_PHET"
       },
       {
         "repo": "sun",

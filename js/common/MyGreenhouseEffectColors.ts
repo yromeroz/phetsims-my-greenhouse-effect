@@ -14,15 +14,76 @@
  * @author Yidier Romero
  */
 
-import { ProfileColorProperty } from '../../../scenery/js/imports.js';
+import { Color, ProfileColorProperty } from '../../../scenery/js/imports.js';
+import Tandem from '../../../tandem/js/Tandem.js';
 import myGreenhouseEffect from '../myGreenhouseEffect.js';
 
 const MyGreenhouseEffectColors = {
 
   // Background color for screens in this sim
-  screenBackgroundColorProperty: new ProfileColorProperty( myGreenhouseEffect, 'background', {
-    default: 'white'
-  } )
+  // screenBackgroundColorProperty: new ProfileColorProperty( myGreenhouseEffect, 'background', {
+  //   default: 'white'
+  // } )
+  screenBackgroundColorProperty: new ProfileColorProperty(
+    myGreenhouseEffect,
+    'background',
+    {
+      default: new Color( 254, 252, 231 )
+    },
+    {
+      tandem: Tandem.COLORS.createTandem( 'screenBackgroundColorProperty' )
+    }
+  ),
+  sunlightColorProperty: new ProfileColorProperty(
+    myGreenhouseEffect,
+    'sunlight',
+    {
+      default: Color.YELLOW
+    },
+    {
+      tandem: Tandem.COLORS.createTandem( 'sunlightColorProperty' )
+    }
+  ),
+  infraredColorProperty: new ProfileColorProperty(
+    myGreenhouseEffect,
+    'infrared',
+    {
+      default: Color.RED
+    },
+    {
+      tandem: Tandem.COLORS.createTandem( 'infraredColorProperty' )
+    }
+  ),
+  energyLegendBackgroundColorProperty: new ProfileColorProperty(
+    myGreenhouseEffect,
+    'energyLegendBackground',
+    {
+      default: Color.BLACK
+    },
+    {
+      tandem: Tandem.COLORS.createTandem( 'energyLegendBackgroundColorProperty' )
+    }
+  ),
+  controlPanelBackgroundColorProperty: new ProfileColorProperty(
+    myGreenhouseEffect,
+    'controlPanelBackground',
+    {
+      default: Color.WHITE
+    },
+    {
+      tandem: Tandem.COLORS.createTandem( 'controlPanelBackgroundColorProperty' )
+    }
+  ),
+  radioButtonGroupSelectedStrokeColorProperty: new ProfileColorProperty(
+    myGreenhouseEffect,
+    'radioButtonGroupSelectedStroke',
+    {
+      default: new Color( 0, 148, 189 )
+    },
+    {
+      tandem: Tandem.COLORS.createTandem( 'radioButtonGroupSelectedStrokeColorProperty' )
+    }
+  )
 };
 
 myGreenhouseEffect.register( 'MyGreenhouseEffectColors', MyGreenhouseEffectColors );
