@@ -13,9 +13,10 @@ type StringsType = {
     'titleStringProperty': LinkableProperty<string>;
   };
   'screen': {
-    'nameStringProperty': LinkableProperty<string>;
     'layerModelStringProperty': LinkableProperty<string>;
     'microStringProperty': LinkableProperty<string>;
+    'photonsStringProperty': LinkableProperty<string>;
+    'myGreenhouseEffectStringProperty': LinkableProperty<string>;
   }
   'surfaceThermometerStringProperty': LinkableProperty<string>;
   'showSurfaceTemperatureStringProperty': LinkableProperty<string>;

@@ -19,7 +19,6 @@
     "runnable": true,
     "supportedBrands": [
       "phet",
-      "phet-io",
       "adapted-from-phet"
     ],
     "supportsOutputJS": true,
@@ -40,9 +39,9 @@
           "**/*.ts"
         ],
         "rules": {
+          "todo-should-have-issue": "off",
           "@typescript-eslint/no-explicit-any": "error",
-          "@typescript-eslint/ban-ts-comment": "error",
-          "todo-should-have-issue": "off"
+          "@typescript-eslint/ban-ts-comment": "error"
         }
       }
     ]

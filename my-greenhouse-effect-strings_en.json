@@ -1,8 +1,11 @@
 {
+  "'my-greenhouse-effect'.title": {
+    "value": "My Greenhouse Effect"
+  },
   "my-greenhouse-effect.title": {
     "value": "My Greenhouse Effect"
   },
-  "screen.name": {
+  "screen.myGreenhouseEffect": {
     "value": "My Greenhouse Effect"
   },
   "screen.waves": {

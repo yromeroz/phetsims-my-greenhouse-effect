@@ -6,59 +6,90 @@
  * @author Yidier Romero
  */
 
-import ScreenView, { ScreenViewOptions } from '../../../../joist/js/ScreenView.js';
-import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
-import MyGreenhouseEffectConstants from '../../common/MyGreenhouseEffectConstants.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
+import GreenhouseEffectScreenView from '../../common/view/GreenhouseEffectScreenView.js';
+import LayerModelObservationWindow from '../../common/view/LayerModelObservationWindow.js';
+import LayersModelTimeControlNode from '../../common/view/LayersModelTimeControlNode.js';
+import MorePhotonsCheckbox from '../../common/view/MorePhotonsCheckbox.js';
 import myGreenhouseEffect from '../../myGreenhouseEffect.js';
 import MyGreenhouseEffectModel from '../model/MyGreenhouseEffectModel.js';
-import optionize from '../../../../phet-core/js/optionize.js';
+import LayersControl from '../../layer-model/view/LayersControl.js';
+import SunAndReflectionControl from '../../layer-model/view/SunAndReflectionControl.js';
+import TemperatureUnitsSelector from '../../layer-model/view/TemperatureUnitsSelector.js';
 
-type SelfOptions = {
- //TODO add options that are specific to MyGreenhouseEffectScreenView here
-};
+class MyGreenhouseEffectScreenView extends GreenhouseEffectScreenView {
 
-type MyGreenhouseEffectScreenViewOptions = SelfOptions & ScreenViewOptions;
+  public constructor( model: MyGreenhouseEffectModel, tandem: Tandem ) {
 
-export default class MyGreenhouseEffectScreenView extends ScreenView {
-
-  public constructor( model: MyGreenhouseEffectModel, providedOptions: MyGreenhouseEffectScreenViewOptions ) {
-
-    const options = optionize<MyGreenhouseEffectScreenViewOptions, SelfOptions, ScreenViewOptions>()( {
-
-      //TODO add default values for optional SelfOptions here
-
-      //TODO add default values for optional ScreenViewOptions here
-    }, providedOptions );
-
-    super( options );
-
-    const resetAllButton = new ResetAllButton( {
-      listener: () => {
-        this.interruptSubtreeInput(); // cancel interactions that may be in progress
-        model.reset();
-        this.reset();
-      },
-      right: this.layoutBounds.maxX - MyGreenhouseEffectConstants.SCREEN_VIEW_X_MARGIN,
-      bottom: this.layoutBounds.maxY - MyGreenhouseEffectConstants.SCREEN_VIEW_Y_MARGIN,
-      tandem: options.tandem.createTandem( 'resetAllButton' )
+    // Create the observation window that will depict the layers and photons.
+    const observationWindow = new LayerModelObservationWindow( model, {
+      tandem: tandem.createTandem( 'observationWindow' )
     } );
-    this.addChild( resetAllButton );
-  }
 
-  /**
-   * Resets the view.
-   */
-  public reset(): void {
-    //TODO
-  }
+    const timeControlNode = new LayersModelTimeControlNode( model, {
+      tandem: tandem.createTandem( 'timeControlNode' )
+    } );
 
-  /**
-   * Steps the view.
-   * @param dt - time step, in seconds
-   */
-  public override step( dt: number ): void {
-    //TODO
+    super( model, observationWindow, timeControlNode, {
+
+      // Frame the observation window so that the photons appear to stay within it.
+      useClippingFrame: true,
+
+      // phet-io
+      tandem: tandem
+    } );
+
+    const temperatureUnitsSelector = new TemperatureUnitsSelector(
+      model.temperatureUnitsProperty,
+      tandem.createTandem( 'temperatureUnitsSelector' )
+    );
+    this.addChild( temperatureUnitsSelector );
+
+    const morePhotonsCheckbox = new MorePhotonsCheckbox(
+      model.photonCollection.showAllSimulatedPhotonsInViewProperty,
+      tandem.createTandem( 'morePhotonsCheckbox' )
+    );
+    this.addChild( morePhotonsCheckbox );
+
+    // layout
+    temperatureUnitsSelector.left = this.observationWindow.left;
+    temperatureUnitsSelector.top = this.observationWindow.bottom + 3;
+    morePhotonsCheckbox.left = this.observationWindow.left;
+    morePhotonsCheckbox.top = temperatureUnitsSelector.bottom + 12;
+
+    // controls on the side
+    const sunAndReflectionControl = new SunAndReflectionControl(
+      this.energyLegend.width,
+      model,
+      tandem.createTandem( 'sunAndReflectionControl' )
+    );
+    this.legendAndControlsVBox.addChild( sunAndReflectionControl );
+
+    const layersControl = new LayersControl(
+      this.energyLegend.width,
+      model,
+      tandem.createTandem( 'layersControl' )
+    );
+    this.legendAndControlsVBox.addChild( layersControl );
+
+    // pdom - override the pdomOrders for the supertype to insert subtype components
+    this.pdomPlayAreaNode.pdomOrder = [
+      this.observationWindow,
+      sunAndReflectionControl,
+      layersControl,
+      observationWindow.showThermometerCheckbox,
+      ...observationWindow.atmosphereLayerNodes,
+      observationWindow.instrumentVisibilityControls,
+      observationWindow.fluxMeterNode
+    ];
+    this.pdomControlAreaNode.pdomOrder = [
+      temperatureUnitsSelector,
+      morePhotonsCheckbox,
+      this.timeControlNode,
+      this.resetAllButton
+    ];
   }
 }
 
 myGreenhouseEffect.register( 'MyGreenhouseEffectScreenView', MyGreenhouseEffectScreenView );
+export default MyGreenhouseEffectScreenView;

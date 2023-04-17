@@ -6,45 +6,38 @@
  * @author Yidier Romero
  */
 
-import Screen, { ScreenOptions } from '../../../joist/js/Screen.js';
+import Screen from '../../../joist/js/Screen.js';
 import Tandem from '../../../tandem/js/Tandem.js';
 import MyGreenhouseEffectColors from '../common/MyGreenhouseEffectColors.js';
 import myGreenhouseEffect from '../myGreenhouseEffect.js';
 import MyGreenhouseEffectModel from './model/MyGreenhouseEffectModel.js';
 import MyGreenhouseEffectScreenView from './view/MyGreenhouseEffectScreenView.js';
 import MyGreenhouseEffectStrings from '../MyGreenhouseEffectStrings.js';
-import LayerModelScreen from '../layer-model/LayerModelScreen.js';
 import GreenhouseEffectIconFactory from '../common/view/GreenhouseEffectIconFactory.js';
 import MyGreenhouseEffectConstants from '../common/MyGreenhouseEffectConstants.js';
+import GreenhouseEffectKeyboardHelpContent from '../common/view/GreenhouseEffectKeyboardHelpContent.js';
 
-type SelfOptions = {
-  //TODO add options that are specific to MyGreenhouseEffectScreen here
-};
 
-type MyGreenhouseEffectScreenOptions = SelfOptions & ScreenOptions;
+class MyGreenhouseEffectScreen extends Screen<MyGreenhouseEffectModel, MyGreenhouseEffectScreenView> {
 
-export default class MyGreenhouseEffectScreen extends Screen<MyGreenhouseEffectModel, MyGreenhouseEffectScreenView> {
-
-  //public constructor( providedOptions: MyGreenhouseEffectScreenOptions ) {
   public constructor( tandem: Tandem ) {
 
-    //const options = optionize<MyGreenhouseEffectScreenOptions, SelfOptions, ScreenOptions>()( {
-    const options =  {
-      name: MyGreenhouseEffectStrings.screen.nameStringProperty,
-      //TODO add default values for optional SelfOptions here
-      homeScreenIcon: GreenhouseEffectIconFactory.createLayerModelHomeScreenIcon(),
+    const options = {
+      name: MyGreenhouseEffectStrings.screen.myGreenhouseEffectStringProperty,
+      homeScreenIcon: GreenhouseEffectIconFactory.createPhotonsHomeScreenIcon(),
       maxDT: MyGreenhouseEffectConstants.MAX_DT,
       tandem: tandem,
-      //TODO add default values for optional ScreenOptions here
-      backgroundColorProperty: MyGreenhouseEffectColors.screenBackgroundColorProperty
+      backgroundColorProperty: MyGreenhouseEffectColors.screenBackgroundColorProperty,
+      createKeyboardHelpNode: () => new GreenhouseEffectKeyboardHelpContent( { includeFluxMeterHelp: true } )
     };
 
     super(
-      () => new MyGreenhouseEffectModel( { tandem: options.tandem.createTandem( 'model' ) } ),
-      model => new MyGreenhouseEffectScreenView( model, { tandem: options.tandem.createTandem( 'view' ) } ),
+      () => new MyGreenhouseEffectModel( tandem.createTandem( 'model' ) ),
+      model => new MyGreenhouseEffectScreenView( model, tandem.createTandem( 'view' ) ),
       options
     );
   }
 }
 
 myGreenhouseEffect.register( 'MyGreenhouseEffectScreen', MyGreenhouseEffectScreen );
+export default MyGreenhouseEffectScreen;
